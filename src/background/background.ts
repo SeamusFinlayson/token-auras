@@ -116,6 +116,8 @@ function createMode() {
                 .fillOpacity(toolMetadata.opacity / 100)
                 .strokeWidth(0)
                 .locked(true)
+                .disableAutoZIndex(true)
+                .zIndex(-10000000)
                 // .disableAttachmentBehavior(["SCALE"])
                 .build()
             : buildShape()
@@ -135,6 +137,8 @@ function createMode() {
                 .fillOpacity(toolMetadata.opacity / 100)
                 .strokeWidth(0)
                 .locked(true)
+                .disableAutoZIndex(true)
+                .zIndex(-10000000)
                 // .disableAttachmentBehavior(["SCALE"])
                 .build();
         OBR.scene.items.addItems([aura]);
