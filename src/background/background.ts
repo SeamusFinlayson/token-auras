@@ -8,6 +8,7 @@ import {
   getImageCenter,
   switchToDefaultTool,
 } from "../utils";
+import { buildAura } from "./buildAura";
 export const icon = new URL(
   "../assets/sun.svg#icon",
   import.meta.url,
@@ -97,50 +98,7 @@ function createMode() {
           target.layer === "MOUNT" ||
           target.layer === "PROP")
       ) {
-        const sceneDpi = await OBR.scene.grid.getDpi();
-        const { width } = getImageBounds(target, sceneDpi);
-
-        const metadata = await OBR.tool.getMetadata(TOOL_ID);
-        const toolMetadata = { ...defaultToolMetadata, ...metadata };
-        if (!isToolMetadata(toolMetadata)) throw "Error bad metadata";
-        const aura =
-          toolMetadata.shape === "CIRCLE"
-            ? buildShape()
-                .id(`${target.id}-aura`)
-                .shapeType("CIRCLE")
-                .position(getImageCenter(target, sceneDpi))
-                .attachedTo(target.id)
-                .width(width + sceneDpi * toolMetadata.radius * 2)
-                .height(width + sceneDpi * toolMetadata.radius * 2)
-                .fillColor(toolMetadata.color)
-                .fillOpacity(toolMetadata.opacity / 100)
-                .strokeWidth(0)
-                .locked(true)
-                .disableAutoZIndex(true)
-                .zIndex(-10000000)
-                // .disableAttachmentBehavior(["SCALE"])
-                .build()
-            : buildShape()
-                .id(`${target.id}-aura`)
-                .shapeType("RECTANGLE")
-                .position(
-                  Math2.subtract(getImageCenter(target, sceneDpi), {
-                    x: width / 2 + sceneDpi * toolMetadata.radius,
-                    y: width / 2 + sceneDpi * toolMetadata.radius,
-                  }),
-                )
-                .attachedTo(target.id)
-                .disableAttachmentBehavior(["ROTATION"])
-                .width(width + sceneDpi * toolMetadata.radius * 2)
-                .height(width + sceneDpi * toolMetadata.radius * 2)
-                .fillColor(toolMetadata.color)
-                .fillOpacity(toolMetadata.opacity / 100)
-                .strokeWidth(0)
-                .locked(true)
-                .disableAutoZIndex(true)
-                .zIndex(-10000000)
-                // .disableAttachmentBehavior(["SCALE"])
-                .build();
+        const aura = await buildAura(target);
         OBR.scene.items.addItems([aura]);
       }
     },
