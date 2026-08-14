@@ -24,6 +24,7 @@ export async function buildAura(target: Image) {
           .strokeWidth(0)
           .locked(true)
           .disableAutoZIndex(true)
+          .visible(target.visible)
           .zIndex(-10000000)
           // .disableAttachmentBehavior(["SCALE"])
           .build()
@@ -45,6 +46,7 @@ export async function buildAura(target: Image) {
           .strokeWidth(0)
           .locked(true)
           .disableAutoZIndex(true)
+          .visible(target.visible)
           .zIndex(-10000000)
           // .disableAttachmentBehavior(["SCALE"])
           .build();
