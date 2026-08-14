@@ -1,13 +1,7 @@
-import OBR, { buildShape, isImage, Math2 } from "@owlbear-rodeo/sdk";
+import OBR, { isImage } from "@owlbear-rodeo/sdk";
 import { TOOL_ID, MODE_ID } from "../ids";
-import { defaultToolMetadata, isToolMetadata } from "../types";
-import {
-  closePopover,
-  createPopover,
-  getImageBounds,
-  getImageCenter,
-  switchToDefaultTool,
-} from "../utils";
+import { defaultToolMetadata } from "../types";
+import { closePopover, createPopover, switchToDefaultTool } from "../utils";
 import { buildAura } from "./buildAura";
 export const icon = new URL(
   "../assets/sun.svg#icon",
